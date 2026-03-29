@@ -1,7 +1,7 @@
 "use client";
 
 import { attachMetadata, createAsset } from "../../lib/client";
-import { formatSolanaError } from "@rwa/lib/errors";
+import { formatSolanaError } from "../../lib/errors";
 import { BN } from "@coral-xyz/anchor";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { Keypair, LAMPORTS_PER_SOL } from "@solana/web3.js";

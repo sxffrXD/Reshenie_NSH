@@ -1,6 +1,6 @@
 "use client";
 
-import type { AnchorWallet } from "@rwa/lib/client";
+import type { AnchorWallet } from "../../lib/client";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useMemo } from "react";
 
