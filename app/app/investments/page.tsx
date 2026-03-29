@@ -4,8 +4,8 @@ import {
   assetStatusLabel,
   getUserTokens,
   type UserTokenBalance,
-} from "@rwa/lib/client";
-import { formatSolanaError } from "@rwa/lib/errors";
+} from "../../lib/client";
+import { formatSolanaError } from "../../lib/errors";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import Link from "next/link";

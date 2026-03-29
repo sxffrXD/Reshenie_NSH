@@ -1,7 +1,7 @@
 "use client";
 
-import { fetchAllAssets, getUserTokens } from "@rwa/lib/client";
-import { formatSolanaError } from "@rwa/lib/errors";
+import { fetchAllAssets, getUserTokens } from "../../lib/client";
+import { formatSolanaError } from "../../lib/errors";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";

@@ -10,8 +10,8 @@ import {
   simulateIncomeDistribution,
   updateAssetStatus,
   type AssetRecord,
-} from "@rwa/lib/client";
-import { formatSolanaError } from "@rwa/lib/errors";
+} from "../../lib/client";
+import { formatSolanaError } from "../../lib/errors";
 import { BN } from "@coral-xyz/anchor";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
