@@ -43,7 +43,7 @@ export default function DashboardPage() {
     void refresh();
   }, [refresh]);
 
-  if (!connected) {
+  if (!connected || !publicKey) {
     return (
       <div>
         <h1>Dashboard</h1>
@@ -63,7 +63,7 @@ export default function DashboardPage() {
         {loading ? (
           <>
             <span className="spinner" aria-hidden />
-            Refreshing…
+            Refreshing...
           </>
         ) : (
           "Refresh overview"
@@ -75,11 +75,11 @@ export default function DashboardPage() {
       <div className="card" style={{ marginTop: "1rem" }}>
         <p>
           <strong>Projects on-chain:</strong>{" "}
-          {listed ?? (loading ? "…" : "—")}
+          {listed ?? (loading ? "..." : "—")}
         </p>
         <p>
           <strong>Your RWA holdings:</strong>{" "}
-          {holdings ?? (loading ? "…" : "—")}
+          {holdings ?? (loading ? "..." : "—")}
         </p>
         <p style={{ marginBottom: 0 }}>
           <Link href="/investments">Open My investments →</Link>
