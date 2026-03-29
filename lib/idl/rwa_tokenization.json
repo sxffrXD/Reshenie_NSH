@@ -1,0 +1,200 @@
+{
+  "address": "9ftdEgxvkSr2Yn4vmjHpfadHY38i1NgRN3JpAKncjncj",
+  "metadata": {
+    "name": "rwa_tokenization",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "RWA agricultural asset tokenization MVP"
+  },
+  "instructions": [
+    {
+      "name": "create_asset",
+      "discriminator": [28, 42, 120, 51, 7, 38, 156, 136],
+      "accounts": [
+        { "name": "farmer", "writable": true, "signer": true },
+        { "name": "asset", "writable": true },
+        { "name": "mint", "writable": true, "signer": true },
+        { "name": "treasury", "writable": true },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        { "name": "name", "type": "string" },
+        { "name": "description", "type": "string" },
+        { "name": "total_supply", "type": "u64" },
+        { "name": "decimals", "type": "u8" },
+        { "name": "price_per_token_lamports", "type": "u64" }
+      ]
+    },
+    {
+      "name": "attach_metadata",
+      "discriminator": [108, 247, 212, 125, 7, 240, 165, 112],
+      "accounts": [
+        { "name": "farmer", "signer": true },
+        { "name": "asset", "writable": true }
+      ],
+      "args": [{ "name": "metadata_uri", "type": "string" }]
+    },
+    {
+      "name": "update_asset_status",
+      "discriminator": [230, 38, 248, 210, 236, 202, 71, 253],
+      "accounts": [
+        { "name": "farmer", "signer": true },
+        { "name": "asset", "writable": true }
+      ],
+      "args": [{ "name": "new_status", "type": "u8" }]
+    },
+    {
+      "name": "purchase_tokens",
+      "discriminator": [142, 1, 16, 160, 115, 120, 55, 254],
+      "accounts": [
+        { "name": "buyer", "writable": true, "signer": true },
+        { "name": "farmer", "writable": true },
+        { "name": "asset", "writable": true },
+        { "name": "mint", "writable": true },
+        { "name": "treasury", "writable": true },
+        { "name": "buyer_token_account", "writable": true },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [{ "name": "amount", "type": "u64" }]
+    },
+    {
+      "name": "simulate_income_distribution",
+      "discriminator": [143, 175, 203, 161, 212, 198, 66, 228],
+      "accounts": [
+        { "name": "farmer", "signer": true },
+        { "name": "asset", "writable": true }
+      ],
+      "args": [
+        { "name": "reported_lamports", "type": "u64" },
+        { "name": "memo", "type": "string" }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Asset",
+      "discriminator": [234, 180, 241, 252, 139, 224, 160, 8]
+    }
+  ],
+  "events": [
+    {
+      "name": "AssetCreated",
+      "discriminator": [206, 193, 252, 254, 207, 185, 154, 4]
+    },
+    {
+      "name": "AssetStatusUpdated",
+      "discriminator": [188, 248, 174, 245, 183, 56, 124, 85]
+    },
+    {
+      "name": "TokensPurchased",
+      "discriminator": [214, 119, 105, 186, 114, 205, 228, 181]
+    },
+    {
+      "name": "IncomeDistributed",
+      "discriminator": [124, 174, 84, 60, 7, 67, 87, 154]
+    }
+  ],
+  "errors": [
+    { "code": 6000, "name": "NameTooLong", "msg": "Name must be 32 characters or less." },
+    { "code": 6001, "name": "DescriptionTooLong", "msg": "Description must be 200 characters or less." },
+    { "code": 6002, "name": "ZeroSupply", "msg": "Total supply must be positive." },
+    { "code": 6003, "name": "ZeroAmount", "msg": "Amount must be positive." },
+    { "code": 6004, "name": "MathOverflow", "msg": "Arithmetic overflow." },
+    { "code": 6005, "name": "MemoTooLong", "msg": "Memo must be 64 characters or less." },
+    { "code": 6006, "name": "UriTooLong", "msg": "Metadata URI must be 200 characters or less." },
+    { "code": 6007, "name": "InsufficientTokens", "msg": "Not enough tokens left in treasury." },
+    { "code": 6008, "name": "OfferingClosed", "msg": "Offering is completed; no further purchases." },
+    { "code": 6009, "name": "Oversold", "msg": "Sold amount exceeded total supply." },
+    { "code": 6010, "name": "InvalidStatus", "msg": "Invalid status value." }
+  ],
+  "types": [
+    {
+      "name": "Asset",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "farmer", "type": "pubkey" },
+          { "name": "mint", "type": "pubkey" },
+          { "name": "treasury", "type": "pubkey" },
+          { "name": "bump", "type": "u8" },
+          { "name": "name", "type": "string" },
+          { "name": "description", "type": "string" },
+          { "name": "metadata_uri", "type": "string" },
+          { "name": "total_supply", "type": "u64" },
+          { "name": "sold_amount", "type": "u64" },
+          { "name": "price_per_token_lamports", "type": "u64" },
+          { "name": "decimals", "type": "u8" },
+          { "name": "status", "type": "u8" }
+        ]
+      }
+    },
+    {
+      "name": "AssetCreated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "asset", "type": "pubkey" },
+          { "name": "farmer", "type": "pubkey" },
+          { "name": "mint", "type": "pubkey" },
+          { "name": "name", "type": "string" },
+          { "name": "total_supply", "type": "u64" },
+          { "name": "price_per_token_lamports", "type": "u64" }
+        ]
+      }
+    },
+    {
+      "name": "AssetStatusUpdated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "asset", "type": "pubkey" },
+          { "name": "previous_status", "type": "u8" },
+          { "name": "new_status", "type": "u8" }
+        ]
+      }
+    },
+    {
+      "name": "TokensPurchased",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "asset", "type": "pubkey" },
+          { "name": "buyer", "type": "pubkey" },
+          { "name": "amount", "type": "u64" },
+          { "name": "cost_lamports", "type": "u64" },
+          { "name": "sold_amount_after", "type": "u64" }
+        ]
+      }
+    },
+    {
+      "name": "IncomeDistributed",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "asset", "type": "pubkey" },
+          { "name": "farmer", "type": "pubkey" },
+          { "name": "reported_lamports", "type": "u64" },
+          { "name": "memo", "type": "string" }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rwa-agri-mvp.local/schemas/rwa-asset-metadata.schema.json",
+  "title": "RWA agricultural asset verification document",
+  "description": "Off-chain payload referenced by Asset.metadata_uri (IPFS, HTTPS, or Arweave). Used to link a Solana mint to real-world disclosure: location, cadastral or permit references, and evidence hashes. This MVP simulates attestation: the URI is not validated on-chain; indexers and investors verify JSON shape and content.",
+  "type": "object",
+  "required": ["asset_id", "name", "location", "proof"],
+  "properties": {
+    "asset_id": {
+      "type": "string",
+      "description": "Opaque id (e.g. base58 mint or internal SKU)"
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable project name (mirrors on-chain name)"
+    },
+    "location": {
+      "type": "string",
+      "description": "Region, coordinates, or structured address"
+    },
+    "proof": {
+      "type": "string",
+      "description": "Document hash (hex), file URI, or short attestation text for hackathon demo"
+    }
+  },
+  "additionalProperties": true
+}
